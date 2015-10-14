@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="esp8266 Builder" basedir="." default="binaries">
+	<description>Builder for programming an ESP8266 on OSX</description>
+
+	<!-- path to serial port connected to ESP8266 -->
+	<property name="programmer" value="/dev/tty.usbserial-AL0155TJ"/>
+
+	<!-- location of the ESP8266 sdk binaries -->
+	<property name="esp8266sdkBinDir" value="/Volumes/ESPTools/esp-open-sdk/xtensa-lx106-elf/bin/"/>
+
+	<!-- location of the esptool binary -->
+	<property name="esptoolPath" value="/usr/local/bin/esptool.py"/>
+
+
+	<!-- don't edit these -->
+	<property name="eclipseBuildOutputDir" value="${workspace_loc}/${project_name}/${config_name}"/>
+	<property name="firmwareDir" value="${eclipseBuildOutputDir}/firmware"/>
+
+
+	<target name="checkBinaryExists">
+		<available file="${eclipseBuildOutputDir}/${project_name}" property="binaryPresent"/>
+	</target>
+
+
+	<target name="clean">
+		<echo message="Removing old firmware dir '${firmwareDir}':"/>
+		<delete dir="${firmwareDir}" failonerror="false"/>
+	</target>
+
+
+	<target name="binaries" depends="clean,checkBinaryExists" if="binaryPresent">
+		<echo message="Creating firmware dir '${firmwareDir}':"/>
+
+		<mkdir dir="${firmwareDir}"/>
+
+		<echo message="Creating binaries:"/>
+		<exec dir="${eclipseBuildOutputDir}" executable="${esptoolPath}">
+			<env key="PATH" value="${env.PATH}:${esp8266sdkBinDir}"/>
+			<arg value="elf2image"/>
+			<arg value="${project_name}"/>
+			<arg value="-o"/>
+			<arg value="${firmwareDir}/"/>
+		</exec>
+  	</target>
+
+
+	<target name="flash" depends ="binaries">
+		<echo message="Flashing using '${programmer}':"/>
+		<exec dir="${eclipseBuildOutputDir}" executable="${esptoolPath}">
+			<env key="PATH" value="${env.PATH}:${esp8266sdkBinDir}"/>
+			<arg value="-p"/>
+			<arg value="${programmer}"/>
+			<arg value="write_flash"/>
+			<arg value="0x00000"/>
+			<arg value="${firmwareDir}/0x00000.bin"/>
+			<arg value="0x40000"/>
+			<arg value="${firmwareDir}/0x40000.bin"/>
+		</exec>
+	</target>
+
+</project>
