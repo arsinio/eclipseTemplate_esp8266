@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+environment/project/cdt.managedbuild.config.gnu.cross.exe.debug.1680490461/PATH/delimiter=\:
+environment/project/cdt.managedbuild.config.gnu.cross.exe.debug.1680490461/PATH/operation=replace
+environment/project/cdt.managedbuild.config.gnu.cross.exe.debug.1680490461/PATH/value=/usr/bin\:/bin\:/usr/sbin\:/sbin\:${workspace_loc}/${ProjName}/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/tools/xtensa-lx106-elf/bin
+environment/project/cdt.managedbuild.config.gnu.cross.exe.debug.1680490461/append=true
+environment/project/cdt.managedbuild.config.gnu.cross.exe.debug.1680490461/appendContributed=true

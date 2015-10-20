@@ -6,10 +6,12 @@
 	<property name="programmer" value="/dev/tty.usbserial-AL0155TJ"/>
 
 	<!-- location of the ESP8266 sdk binaries -->
-	<property name="esp8266sdkBinDir" value="/Volumes/ESPTools/esp-open-sdk/xtensa-lx106-elf/bin/"/>
+	<!-- <property name="esp8266sdkBinDir" value="/Volumes/ESPTools/esp-open-sdk/xtensa-lx106-elf/bin/"/> -->
+	<property name="esp8266sdkBinDir" value="${workspace_loc}/${project_name}/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/tools/xtensa-lx106-elf/bin/"/>
 
 	<!-- location of the esptool binary -->
-	<property name="esptoolPath" value="/usr/local/bin/esptool.py"/>
+	<!-- <property name="esptoolPath" value="/usr/local/bin/esptool.py"/> -->
+	<property name="esptoolPath" value="${workspace_loc}/${project_name}/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/tools/esptool"/>
 
 
 	<!-- don't edit these -->
