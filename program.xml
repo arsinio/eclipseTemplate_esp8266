@@ -25,7 +25,16 @@
 		<available file="${eclipseBuildOutputDir}/${project_name}.elf" property="binaryPresent"/>
 	</target>
 
+	
+	<target name="printUndefinedSymbols" depends="checkBinaryExists" if="binaryPresent">
+		<echo message="Checking for undefined symbols:"/>
+		<exec dir="${eclipseBuildOutputDir}" executable="${esp8266sdkBinDir}/xtensa-lx106-elf-nm">
+			<arg value="-u"/>
+			<arg value="${project_name}.elf"/>
+		</exec>
+	</target>
 
+	
 	<target name="binary" depends="checkBinaryExists" if="binaryPresent">
 		<echo message="Creating binary '${project_name}.bin':"/>
 		
@@ -60,11 +69,7 @@
 			<arg value="-ec"/>
 		</exec>
 		
-		<echo message="Checking for undefined symbols:"/>
-		<exec dir="${eclipseBuildOutputDir}" executable="${esp8266sdkBinDir}/xtensa-lx106-elf-nm">
-			<arg value="-u"/>
-			<arg value="${project_name}.elf"/>
-		</exec>
+		<antcall target="printUndefinedSymbols"/>
   	</target>
 
 
