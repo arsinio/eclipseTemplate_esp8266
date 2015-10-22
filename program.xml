@@ -1,62 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="esp8266 Builder" basedir="." default="binaries">
+<project name="esp8266 Builder" basedir="." default="flash">
 	<description>Builder for programming an ESP8266 on OSX</description>
 
 	<!-- path to serial port connected to ESP8266 -->
 	<property name="programmer" value="/dev/tty.usbserial-AL0155TJ"/>
 
 	<!-- location of the ESP8266 sdk binaries -->
-	<!-- <property name="esp8266sdkBinDir" value="/Volumes/ESPTools/esp-open-sdk/xtensa-lx106-elf/bin/"/> -->
-	<property name="esp8266sdkBinDir" value="${workspace_loc}/${project_name}/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/tools/xtensa-lx106-elf/bin/"/>
+	<property name="esp8266sdkBinDir" value="/opt/esp-open-sdk/xtensa-lx106-elf/bin/"/>
 
 	<!-- location of the esptool binary -->
-	<!-- <property name="esptoolPath" value="/usr/local/bin/esptool.py"/> -->
-	<property name="esptoolPath" value="${workspace_loc}/${project_name}/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/tools/esptool"/>
+	<property name="esptoolPath_createBin" value="${workspace_loc}/${project_name}/externals/esp8266ArduinoBase/bin/esptool"/>
+	<property name="esptoolPath_flash" value="${workspace_loc}/${project_name}/externals/esp8266ArduinoBase/bin/esptool.py"/>
 
+	<!-- location of the eboot bootloader -->
+	<property name="ebootPath" value="${workspace_loc}/${project_name}/externals/esp8266ArduinoBase/lib/eboot.elf"/>
 
+	
 	<!-- don't edit these -->
+	<property environment="env"/>
 	<property name="eclipseBuildOutputDir" value="${workspace_loc}/${project_name}/${config_name}"/>
-	<property name="firmwareDir" value="${eclipseBuildOutputDir}/firmware"/>
 
 
 	<target name="checkBinaryExists">
-		<available file="${eclipseBuildOutputDir}/${project_name}" property="binaryPresent"/>
+		<available file="${eclipseBuildOutputDir}/${project_name}.elf" property="binaryPresent"/>
 	</target>
 
 
-	<target name="clean">
-		<echo message="Removing old firmware dir '${firmwareDir}':"/>
-		<delete dir="${firmwareDir}" failonerror="false"/>
-	</target>
-
-
-	<target name="binaries" depends="clean,checkBinaryExists" if="binaryPresent">
-		<echo message="Creating firmware dir '${firmwareDir}':"/>
-
-		<mkdir dir="${firmwareDir}"/>
-
-		<echo message="Creating binaries:"/>
-		<exec dir="${eclipseBuildOutputDir}" executable="${esptoolPath}">
+	<target name="binary" depends="checkBinaryExists" if="binaryPresent">
+		<echo message="Creating binary '${project_name}.bin':"/>
+		
+		<exec dir="${eclipseBuildOutputDir}" executable="${esptoolPath_createBin}">
 			<env key="PATH" value="${env.PATH}:${esp8266sdkBinDir}"/>
-			<arg value="elf2image"/>
-			<arg value="${project_name}"/>
-			<arg value="-o"/>
-			<arg value="${firmwareDir}/"/>
+			<arg value="-eo"/>
+			<arg value="${ebootPath}"/>
+			<arg value="-bo"/>
+			<arg value="${project_name}.bin"/>
+			<arg value="-bm"/>
+			<arg value="qio"/>
+			<arg value="-bf"/>
+			<arg value="40"/>
+			<arg value="-bz"/>
+			<arg value="4M"/>
+			<arg value="-bs"/>
+			<arg value=".text"/>
+			<arg value="-bp"/>
+			<arg value="4096"/>
+			<arg value="-ec"/> 
+			<arg value="-eo"/>
+			<arg value="${project_name}.elf"/>
+			<arg value="-bs"/>
+			<arg value=".irom0.text"/> 
+			<arg value="-bs"/>
+			<arg value=".text"/>
+			<arg value="-bs"/>
+			<arg value=".data"/>
+			<arg value="-bs"/>
+			<arg value=".rodata"/> 
+			<arg value="-bc"/>
+			<arg value="-ec"/>
+		</exec>
+		
+		<echo message="Checking for undefined symbols:"/>
+		<exec dir="${eclipseBuildOutputDir}" executable="${esp8266sdkBinDir}/xtensa-lx106-elf-nm">
+			<arg value="-u"/>
+			<arg value="${project_name}.elf"/>
 		</exec>
   	</target>
 
 
-	<target name="flash" depends ="binaries">
+	<target name="flash" depends ="binary">
 		<echo message="Flashing using '${programmer}':"/>
-		<exec dir="${eclipseBuildOutputDir}" executable="${esptoolPath}">
+		
+		<exec dir="${eclipseBuildOutputDir}" executable="${esptoolPath_flash}">
 			<env key="PATH" value="${env.PATH}:${esp8266sdkBinDir}"/>
 			<arg value="-p"/>
 			<arg value="${programmer}"/>
 			<arg value="write_flash"/>
 			<arg value="0x00000"/>
-			<arg value="${firmwareDir}/0x00000.bin"/>
-			<arg value="0x40000"/>
-			<arg value="${firmwareDir}/0x40000.bin"/>
+			<arg value="${project_name}.bin"/>
 		</exec>
 	</target>
 
