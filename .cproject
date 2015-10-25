@@ -30,7 +30,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/eclipseTemplate_esp8266/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/cores/esp8266}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/eclipseTemplate_esp8266/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/variants/adafruit}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/openCXA-common-c/include/arch-common}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/openCXA-common-c/include/arch-arduino}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/openCXA-common-c/include/arch-esp8266}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/openCXA-common-c/include/collections}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/openCXA-common-c/include/lang}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/openCXA-common-c/include/logger}&quot;"/>
@@ -108,7 +108,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="externals/openCXA-common-c/src/consoleMenu|externals/openCXA-common-c/include/consoleMenu|externals/openCXA-common-c/src/commandLineParser|externals/openCXA-common-c/include/commandLineParser|externals/openCXA-common-c/include/fdLineParser|externals/openCXA-common-c/src/fdLineParser|externals/openCXA-common-c/src/arch-xmega|externals/openCXA-common-c/src/arch-posix|externals/openCXA-common-c/src/arch-libmraa|externals/openCXA-common-c/src/arch-ble112|externals/openCXA-common-c/include/arch-xmega|externals/openCXA-common-c/include/arch-posix|externals/openCXA-common-c/include/arch-libmraa|externals/openCXA-common-c/include/arch-ble112|externals/arduino" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="externals/openCXA-common-c/src/arch-arduino|externals/openCXA-common-c/include/arch-arduino|externals/openCXA-common-c/src/consoleMenu|externals/openCXA-common-c/include/consoleMenu|externals/openCXA-common-c/src/commandLineParser|externals/openCXA-common-c/include/commandLineParser|externals/openCXA-common-c/include/fdLineParser|externals/openCXA-common-c/src/fdLineParser|externals/openCXA-common-c/src/arch-xmega|externals/openCXA-common-c/src/arch-posix|externals/openCXA-common-c/src/arch-libmraa|externals/openCXA-common-c/src/arch-ble112|externals/openCXA-common-c/include/arch-xmega|externals/openCXA-common-c/include/arch-posix|externals/openCXA-common-c/include/arch-libmraa|externals/openCXA-common-c/include/arch-ble112|externals/arduino" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

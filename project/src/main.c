@@ -1,20 +1,77 @@
+/**
+ * Copyright 2015 opencxa.org
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @author Christopher Armenio
+ */
+#include <cxa_assert.h>
+#include <cxa_logger_implementation.h>
+#include <cxa_esp8266_gpio.h>
+#include <cxa_esp8266_usart.h>
+#include <cxa_esp8266_timeBase.h>
+
+#include <cxa_timeDiff.h>
 
 
-#include <cxa_arduino_gpio.h>
-#include <cxa_delay.h>
+// ******** local macro definitions ********
 
 
-static cxa_arduino_gpio_t led_red;
+// ******** local function prototoypes ********
 
 
+// ******** local variable declarations ********
+static cxa_esp8266_gpio_t led_red;
+
+static cxa_esp8266_usart_t usart;
+static cxa_ioStream_t* ios_usart;
+static cxa_timeBase_t tb_generalPurpose;
+
+static cxa_timeDiff_t td_blink;
+
+
+// ******** global function implementations ********
 void setup()
 {
-	cxa_arduino_gpio_init_output(&led_red, 0, CXA_GPIO_POLARITY_NONINVERTED, 0);
+	// setup our assert LED
+	cxa_esp8266_gpio_init_output(&led_red, 0, CXA_GPIO_POLARITY_INVERTED, 0);
+	cxa_assert_setAssertGpio(&led_red.super);
+
+	// setup our debug usart (and delay so things can settle)
+	cxa_esp8266_usart_init_noHH(&usart, CXA_ESP8266_USART_0, 115200);
+	cxa_delay_ms(1000);
+	ios_usart = cxa_usart_getIoStream(&usart.super);
+	cxa_assert_setIoStream(ios_usart);
+
+	// setup our general-purpose timebase
+	cxa_esp8266_timeBase_init(&tb_generalPurpose);
+
+	// setup our logging system
+	cxa_logger_setGlobalTimeBase(&tb_generalPurpose);
+	cxa_logger_setGlobalIoStream(ios_usart);
+
+	// setup our application specific code here
+	cxa_timeDiff_init(&td_blink, &tb_generalPurpose, true);
 }
 
 
 void loop()
 {
-	cxa_gpio_toggle(&led_red.super);
-	cxa_delay_ms(250);
+	if( cxa_timeDiff_isElapsed_recurring_ms(&td_blink, 250) ) cxa_gpio_toggle(&led_red.super);
+
+	uint8_t rxByte;
+	if( cxa_ioStream_readByte(ios_usart, &rxByte) == CXA_IOSTREAM_READSTAT_GOTDATA ) cxa_ioStream_writeByte(ios_usart, rxByte);
 }
+
+
+// ******** local function implementations ********
