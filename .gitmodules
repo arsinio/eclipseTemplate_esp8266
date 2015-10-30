@@ -1,6 +1,3 @@
-[submodule "externals/arduino"]
-	path = externals/arduino
-	url = https://github.com/esp8266/Arduino.git
 [submodule "externals/openCXA-common-c"]
 	path = externals/openCXA-common-c
 	url = https://github.com/OpenCXA/common-c.git
