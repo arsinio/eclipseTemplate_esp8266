@@ -78,10 +78,10 @@
 								<option id="gnu.cpp.compiler.option.warnings.allwarn.370281958" name="All warnings (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" useByScannerDiscovery="false" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.506203476" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
-							<tool command="g++" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} -Wl,--start-group ${INPUTS} /Users/christopherarmenio/Documents/workspace/eclipseTemplate_esp8266/externals/esp8266ArduinoBase/lib/esp8266core.a -lm -lgcc -lhal -lphy -lnet80211 -llwip -lwpa -lmain -lpp -lsmartconfig -lwps -lcrypto -laxtls -Wl,--end-group" errorParsers="org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.tool.gnu.cross.cpp.linker.513207180" name="Cross G++ Linker" superClass="cdt.managedbuild.tool.gnu.cross.cpp.linker">
+							<tool command="g++" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} -Wl,--start-group ${INPUTS} ${workspace_loc:/${ProjName}/externals/esp8266ArduinoBase/lib/esp8266core.a} -lm -lgcc -lhal -lphy -lnet80211 -llwip -lwpa -lmain -lpp -lsmartconfig -lwps -lcrypto -laxtls -Wl,--end-group" errorParsers="org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.tool.gnu.cross.cpp.linker.513207180" name="Cross G++ Linker" superClass="cdt.managedbuild.tool.gnu.cross.cpp.linker">
 								<option id="gnu.cpp.link.option.paths.387517019" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="/opt/esp-open-sdk/sdk/lib"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/eclipseTemplate_esp8266/externals/esp8266ArduinoBase/ld}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/esp8266ArduinoBase/ld}&quot;"/>
 								</option>
 								<option id="gnu.cpp.link.option.nostdlibs.1315821384" name="No startup or default libs (-nostdlib)" superClass="gnu.cpp.link.option.nostdlibs" value="true" valueType="boolean"/>
 								<option id="gnu.cpp.link.option.flags.238152984" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-g -Os -Wl,--no-check-sections -u call_user_start -Wl,-static -Teagle.flash.4m.ld -Wl,--gc-sections -Wl,-wrap,system_restart_local -Wl,-wrap,register_chipv6_phy" valueType="string"/>
@@ -94,9 +94,9 @@
 							<tool id="cdt.managedbuild.tool.gnu.cross.archiver.1584507788" name="Cross GCC Archiver" superClass="cdt.managedbuild.tool.gnu.cross.archiver"/>
 							<tool command="as" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.cross.assembler.803402949" name="Cross GCC Assembler" superClass="cdt.managedbuild.tool.gnu.cross.assembler">
 								<option id="gnu.both.asm.option.include.paths.1583873485" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/eclipseTemplate_esp8266/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/tools/sdk/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/eclipseTemplate_esp8266/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/cores/esp8266}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/eclipseTemplate_esp8266/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/variants/adafruit}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/tools/sdk/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/cores/esp8266}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/variants/adafruit}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1141503361" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
