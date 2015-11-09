@@ -21,15 +21,16 @@
 #include <cxa_esp8266_usart.h>
 #include <cxa_esp8266_timeBase.h>
 #include <cxa_esp8266_wifiManager.h>
+#include <cxa_esp8266_network_clientFactory.h>
 
 #include <cxa_timeDiff.h>
 
 
 // ******** local macro definitions ********
-#define LED_ONPERIOD_CONNECTING_MS			500
-#define LED_OFFPERIOD_CONNECTING_MS			500
-#define LED_ONPERIOD_CONNECTED_MS			1000
-#define LED_OFFPERIOD_CONNECTED_MS			1000
+#define LED_ONPERIOD_ASSOCIATING_MS			500
+#define LED_OFFPERIOD_ASSOCIATING_MS		500
+#define LED_ONPERIOD_ASSOCIATED_MS			1000
+#define LED_OFFPERIOD_ASSOCIATED_MS			1000
 #define LED_ONPERIOD_CONFIG_NOCONN			100
 #define LED_OFFPERIOD_CONFIG_NOCONN			900
 #define LED_ONPERIOD_CONFIG_CONN			900
@@ -40,13 +41,11 @@
 static void updateLed(void);
 static void wifiManCb_configMode_enter(void* userVarIn);
 static void wifiManCb_numConnChange(uint8_t numConnStations, void* userVar);
-static void wifiManCb_connecting(const char *const ssidIn, void* userVarIn);
-static void wifiManCb_connected(const char *const ssidIn, void* userVarIn);
+static void wifiManCb_associating(const char *const ssidIn, void* userVarIn);
+static void wifiManCb_associated(const char *const ssidIn, void* userVarIn);
 
 
 // ******** local variable declarations ********
-
-
 static cxa_esp8266_gpio_t led_red;
 
 static cxa_esp8266_usart_t usart;
@@ -56,6 +55,9 @@ static cxa_timeBase_t tb_generalPurpose;
 static uint32_t led_onPeriod_ms = 0;
 static uint32_t led_offPeriod_ms = 0;
 static cxa_timeDiff_t td_blink;
+
+
+static cxa_network_client_t* netClient = NULL;
 
 
 // ******** global function implementations ********
@@ -82,15 +84,19 @@ void setup(void)
 	cxa_timeDiff_init(&td_blink, &tb_generalPurpose, true);
 
 	cxa_esp8266_wifiManager_init(NULL, &tb_generalPurpose);
-	cxa_esp8266_wifiManager_addListener(wifiManCb_configMode_enter, wifiManCb_numConnChange, NULL, wifiManCb_connecting, wifiManCb_connected, NULL, NULL, NULL);
-	cxa_esp8266_wifiManager_addStoredNetwork("yourSsid", "yourPassphrase");
+	cxa_esp8266_wifiManager_addListener(wifiManCb_configMode_enter, wifiManCb_numConnChange, NULL, wifiManCb_associating, wifiManCb_associated, NULL, NULL, NULL);
+	//cxa_esp8266_wifiManager_addStoredNetwork("yourSsid", "yourPassphrase");
+	cxa_esp8266_wifiManager_addStoredNetwork("lcars", "pineapple14");
 	cxa_esp8266_wifiManager_start();
+
+	cxa_esp8266_network_clientFactory_init(&tb_generalPurpose);
 }
 
 
 void loop(void)
 {
 	cxa_esp8266_wifiManager_update();
+	cxa_esp8266_network_clientFactory_update();
 	updateLed();
 
 	uint8_t rxByte;
@@ -130,15 +136,20 @@ static void wifiManCb_numConnChange(uint8_t numConnStations, void* userVar)
 }
 
 
-static void wifiManCb_connecting(const char *const ssidIn, void* userVarIn)
+static void wifiManCb_associating(const char *const ssidIn, void* userVarIn)
 {
-	led_onPeriod_ms = LED_ONPERIOD_CONNECTING_MS;
-	led_offPeriod_ms = LED_OFFPERIOD_CONNECTING_MS;
+	led_onPeriod_ms = LED_ONPERIOD_ASSOCIATING_MS;
+	led_offPeriod_ms = LED_OFFPERIOD_ASSOCIATING_MS;
 }
 
 
-static void wifiManCb_connected(const char *const ssidIn, void* userVarIn)
+static void wifiManCb_associated(const char *const ssidIn, void* userVarIn)
 {
-	led_onPeriod_ms = LED_ONPERIOD_CONNECTED_MS;
-	led_offPeriod_ms = LED_OFFPERIOD_CONNECTED_MS;
+	led_onPeriod_ms = LED_ONPERIOD_ASSOCIATED_MS;
+	led_offPeriod_ms = LED_OFFPERIOD_ASSOCIATED_MS;
+
+	if( netClient == NULL ) netClient = cxa_network_clientFactory_reserveClient();
+	cxa_assert(netClient);
+
+	cxa_network_client_connectToHost(netClient, "iot.eclipse.org", 1883, 5000);
 }

@@ -99,7 +99,7 @@
 							<tool commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} -Wl,--start-group ${INPUTS} ${workspace_loc:/${ProjName}/externals/esp8266ArduinoBase/lib/esp8266core.a} -lm -lgcc -lhal -lphy -lnet80211 -llwip -lwpa -lmain -lpp -lsmartconfig -lwps -lcrypto -laxtls -Wl,--end-group" id="cdt.managedbuild.tool.gnu.cross.c.linker.2121006521" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker">
 								<option id="gnu.c.link.option.paths.1429545159" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="/opt/esp-open-sdk/esp_iot_sdk_v1.3.0/lib"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/eclipseTemplate_esp8266/project/ld}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/project/ld}&quot;"/>
 								</option>
 								<option id="gnu.c.link.option.ldflags.1415156900" name="Linker flags" superClass="gnu.c.link.option.ldflags" value="-g -Os -Wl,--no-check-sections -u call_user_start -Wl,-static -Teagle.flash.4m.ld -Wl,--gc-sections -Wl,-wrap,register_chipv6_phy" valueType="string"/>
 								<option id="gnu.c.link.option.nostdlibs.1568313524" name="No startup or default libs (-nostdlib)" superClass="gnu.c.link.option.nostdlibs" value="true" valueType="boolean"/>
@@ -111,7 +111,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="externals/openCXA-common-c/src/arch-arduino|externals/openCXA-common-c/include/arch-arduino|externals/openCXA-common-c/src/consoleMenu|externals/openCXA-common-c/include/consoleMenu|externals/openCXA-common-c/src/commandLineParser|externals/openCXA-common-c/include/commandLineParser|externals/openCXA-common-c/include/fdLineParser|externals/openCXA-common-c/src/fdLineParser|externals/openCXA-common-c/src/arch-xmega|externals/openCXA-common-c/src/arch-posix|externals/openCXA-common-c/src/arch-libmraa|externals/openCXA-common-c/src/arch-ble112|externals/openCXA-common-c/include/arch-xmega|externals/openCXA-common-c/include/arch-posix|externals/openCXA-common-c/include/arch-libmraa|externals/openCXA-common-c/include/arch-ble112|externals/arduino" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="externals/openCXA-common-c/src/mqtt|externals/openCXA-common-c/include/mqtt|externals/openCXA-common-c/src/arch-arduino|externals/openCXA-common-c/include/arch-arduino|externals/openCXA-common-c/src/consoleMenu|externals/openCXA-common-c/include/consoleMenu|externals/openCXA-common-c/src/commandLineParser|externals/openCXA-common-c/include/commandLineParser|externals/openCXA-common-c/include/fdLineParser|externals/openCXA-common-c/src/fdLineParser|externals/openCXA-common-c/src/arch-xmega|externals/openCXA-common-c/src/arch-posix|externals/openCXA-common-c/src/arch-libmraa|externals/openCXA-common-c/src/arch-ble112|externals/openCXA-common-c/include/arch-xmega|externals/openCXA-common-c/include/arch-posix|externals/openCXA-common-c/include/arch-libmraa|externals/openCXA-common-c/include/arch-ble112|externals/arduino" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
