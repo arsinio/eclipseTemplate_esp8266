@@ -78,13 +78,13 @@
 								<option id="gnu.cpp.compiler.option.warnings.allwarn.370281958" name="All warnings (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" useByScannerDiscovery="false" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.506203476" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
-							<tool command="g++" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} -Wl,--start-group ${INPUTS} ${workspace_loc:/${ProjName}/externals/esp8266ArduinoBase/lib/esp8266core.a} -lm -lgcc -lhal -lphy -lnet80211 -llwip -lwpa -lmain -lpp -lsmartconfig -lwps -lcrypto -laxtls -Wl,--end-group" errorParsers="org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.tool.gnu.cross.cpp.linker.513207180" name="Cross G++ Linker" superClass="cdt.managedbuild.tool.gnu.cross.cpp.linker">
+							<tool command="g++" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} -Wl,--start-group ${INPUTS} -lm -lgcc -lhal -lphy -lnet80211 -llwip -lwpa -lmain -lpp -lsmartconfig -lwps -lcrypto -laxtls -Wl,--end-group" errorParsers="org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.tool.gnu.cross.cpp.linker.513207180" name="Cross G++ Linker" superClass="cdt.managedbuild.tool.gnu.cross.cpp.linker">
 								<option id="gnu.cpp.link.option.paths.387517019" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="/opt/esp-open-sdk/sdk/lib"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/esp8266ArduinoBase/ld}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/eclipseTemplate_esp8266/project/ld}&quot;"/>
 								</option>
 								<option id="gnu.cpp.link.option.nostdlibs.1315821384" name="No startup or default libs (-nostdlib)" superClass="gnu.cpp.link.option.nostdlibs" value="true" valueType="boolean"/>
-								<option id="gnu.cpp.link.option.flags.238152984" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-g -Os -Wl,--no-check-sections -u call_user_start -Wl,-static -Teagle.flash.4m.ld -Wl,--gc-sections -Wl,-wrap,system_restart_local -Wl,-wrap,register_chipv6_phy" valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.238152984" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-g -Os -Wl,--no-check-sections -u call_user_start -Wl,-static -Teagle.flash.4m.ld -Wl,--gc-sections -Wl,-wrap,register_chipv6_phy" valueType="string"/>
 								<option id="gnu.cpp.link.option.libs.1619087846" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.246300915" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -93,14 +93,21 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cross.archiver.1584507788" name="Cross GCC Archiver" superClass="cdt.managedbuild.tool.gnu.cross.archiver"/>
 							<tool command="as" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.cross.assembler.803402949" name="Cross GCC Assembler" superClass="cdt.managedbuild.tool.gnu.cross.assembler">
-								<option id="gnu.both.asm.option.include.paths.1583873485" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/tools/sdk/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/cores/esp8266}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/arduino/build/macosx/work/Arduino.app/Contents/Java/hardware/esp8266com/esp8266/variants/adafruit}&quot;"/>
-								</option>
+								<option id="gnu.both.asm.option.include.paths.1583873485" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths"/>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1141503361" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
-							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.2121006521" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker"/>
+							<tool commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} -Wl,--start-group ${INPUTS} ${workspace_loc:/${ProjName}/externals/esp8266ArduinoBase/lib/esp8266core.a} -lm -lgcc -lhal -lphy -lnet80211 -llwip -lwpa -lmain -lpp -lsmartconfig -lwps -lcrypto -laxtls -Wl,--end-group" id="cdt.managedbuild.tool.gnu.cross.c.linker.2121006521" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker">
+								<option id="gnu.c.link.option.paths.1429545159" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="/opt/esp-open-sdk/esp_iot_sdk_v1.3.0/lib"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/eclipseTemplate_esp8266/project/ld}&quot;"/>
+								</option>
+								<option id="gnu.c.link.option.ldflags.1415156900" name="Linker flags" superClass="gnu.c.link.option.ldflags" value="-g -Os -Wl,--no-check-sections -u call_user_start -Wl,-static -Teagle.flash.4m.ld -Wl,--gc-sections -Wl,-wrap,register_chipv6_phy" valueType="string"/>
+								<option id="gnu.c.link.option.nostdlibs.1568313524" name="No startup or default libs (-nostdlib)" superClass="gnu.c.link.option.nostdlibs" value="true" valueType="boolean"/>
+								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1896984724" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
@@ -132,11 +139,10 @@
 			<content-type-mapping configuration="" content-type="org.eclipse.cdt.core.cxxSource" language="org.eclipse.cdt.core.g++"/>
 		</project-mappings>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.1680490461;cdt.managedbuild.config.gnu.cross.exe.debug.1680490461.;cdt.managedbuild.tool.gnu.cross.cpp.compiler.236021453;cdt.managedbuild.tool.gnu.cpp.compiler.input.506203476">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.1680490461;cdt.managedbuild.config.gnu.cross.exe.debug.1680490461.;cdt.managedbuild.tool.gnu.cross.c.compiler.543096291;cdt.managedbuild.tool.gnu.c.compiler.input.2094483515">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
@@ -144,6 +150,4 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
-	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>

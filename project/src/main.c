@@ -25,7 +25,6 @@
 #include <cxa_timeDiff.h>
 
 
-
 // ******** local macro definitions ********
 #define LED_ONPERIOD_CONNECTING_MS			500
 #define LED_OFFPERIOD_CONNECTING_MS			500
@@ -46,6 +45,8 @@ static void wifiManCb_connected(const char *const ssidIn, void* userVarIn);
 
 
 // ******** local variable declarations ********
+
+
 static cxa_esp8266_gpio_t led_red;
 
 static cxa_esp8266_usart_t usart;
@@ -58,15 +59,15 @@ static cxa_timeDiff_t td_blink;
 
 
 // ******** global function implementations ********
-void setup()
+void setup(void)
 {
 	// setup our assert LED
 	cxa_esp8266_gpio_init_output(&led_red, 0, CXA_GPIO_POLARITY_INVERTED, 0);
 	cxa_assert_setAssertGpio(&led_red.super);
 
+
 	// setup our debug usart (and delay so things can settle)
 	cxa_esp8266_usart_init_noHH(&usart, CXA_ESP8266_USART_0, 115200);
-	cxa_delay_ms(1000);
 	ios_usart = cxa_usart_getIoStream(&usart.super);
 	cxa_assert_setIoStream(ios_usart);
 
@@ -87,7 +88,7 @@ void setup()
 }
 
 
-void loop()
+void loop(void)
 {
 	cxa_esp8266_wifiManager_update();
 	updateLed();
