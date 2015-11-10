@@ -151,5 +151,5 @@ static void wifiManCb_associated(const char *const ssidIn, void* userVarIn)
 	if( netClient == NULL ) netClient = cxa_network_clientFactory_reserveClient();
 	cxa_assert(netClient);
 
-	cxa_network_client_connectToHost(netClient, "iot.eclipse.org", 1883, 5000);
+	cxa_network_client_connectToHost(netClient, "iot.eclipse.org", 1883, 5000, false);
 }
