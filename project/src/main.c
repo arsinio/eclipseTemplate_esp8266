@@ -25,6 +25,8 @@
 
 #include <cxa_timeDiff.h>
 
+#include <cxa_mqtt_client_network.h>
+
 
 // ******** local macro definitions ********
 #define LED_ONPERIOD_ASSOCIATING_MS			500
@@ -44,6 +46,9 @@ static void wifiManCb_numConnChange(uint8_t numConnStations, void* userVar);
 static void wifiManCb_associating(const char *const ssidIn, void* userVarIn);
 static void wifiManCb_associated(const char *const ssidIn, void* userVarIn);
 
+static void mqttCb_onConnect(cxa_mqtt_client_t *const clientIn, void* userVarIn);
+static void mqttCb_onPublish_testTopic(cxa_mqtt_client_t *const clientIn, char* topicNameIn, void* payloadIn, size_t payloadLen_bytesIn, void* userVarIn);
+
 
 // ******** local variable declarations ********
 static cxa_esp8266_gpio_t led_red;
@@ -56,8 +61,7 @@ static uint32_t led_onPeriod_ms = 0;
 static uint32_t led_offPeriod_ms = 0;
 static cxa_timeDiff_t td_blink;
 
-
-static cxa_network_client_t* netClient = NULL;
+static cxa_mqtt_client_network_t mqttC;
 
 
 // ******** global function implementations ********
@@ -85,11 +89,13 @@ void setup(void)
 
 	cxa_esp8266_wifiManager_init(NULL, &tb_generalPurpose);
 	cxa_esp8266_wifiManager_addListener(wifiManCb_configMode_enter, wifiManCb_numConnChange, NULL, wifiManCb_associating, wifiManCb_associated, NULL, NULL, NULL);
-	//cxa_esp8266_wifiManager_addStoredNetwork("yourSsid", "yourPassphrase");
-	cxa_esp8266_wifiManager_addStoredNetwork("lcars", "pineapple14");
+	cxa_esp8266_wifiManager_addStoredNetwork("yourSsid", "yourPassphrase");
 	cxa_esp8266_wifiManager_start();
 
 	cxa_esp8266_network_clientFactory_init(&tb_generalPurpose);
+	cxa_mqtt_client_network_init(&mqttC, &tb_generalPurpose, "cid");
+	cxa_mqtt_client_addListener(&mqttC.super, mqttCb_onConnect, NULL, NULL);
+	cxa_mqtt_client_subscribe(&mqttC.super, "testTopic", CXA_MQTT_QOS_ATMOST_ONCE, mqttCb_onPublish_testTopic, NULL);
 }
 
 
@@ -97,10 +103,9 @@ void loop(void)
 {
 	cxa_esp8266_wifiManager_update();
 	cxa_esp8266_network_clientFactory_update();
-	updateLed();
+	cxa_mqtt_client_update(&mqttC.super);
 
-	uint8_t rxByte;
-	if( cxa_ioStream_readByte(ios_usart, &rxByte) == CXA_IOSTREAM_READSTAT_GOTDATA ) cxa_ioStream_writeByte(ios_usart, rxByte);
+	updateLed();
 }
 
 
@@ -148,8 +153,18 @@ static void wifiManCb_associated(const char *const ssidIn, void* userVarIn)
 	led_onPeriod_ms = LED_ONPERIOD_ASSOCIATED_MS;
 	led_offPeriod_ms = LED_OFFPERIOD_ASSOCIATED_MS;
 
-	if( netClient == NULL ) netClient = cxa_network_clientFactory_reserveClient();
-	cxa_assert(netClient);
+	cxa_mqtt_client_network_connectToHost(&mqttC, "m11.cloudmqtt.com", 13164, "arsinio", "tmpPasswd", false);
+}
 
-	cxa_network_client_connectToHost(netClient, "iot.eclipse.org", 1883, 5000, false);
+
+static void mqttCb_onConnect(cxa_mqtt_client_t *const clientIn, void* userVarIn)
+{
+	uint8_t payload[] = "hello world";
+	cxa_mqtt_client_publish(&mqttC.super, CXA_MQTT_QOS_ATMOST_ONCE, false, "testTopic", payload, sizeof(payload));
+}
+
+
+static void mqttCb_onPublish_testTopic(cxa_mqtt_client_t *const clientIn, char* topicNameIn, void* payloadIn, size_t payloadLen_bytesIn, void* userVarIn)
+{
+	cxa_gpio_toggle(&led_red.super);
 }

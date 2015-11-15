@@ -34,6 +34,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/openCXA-common-c/include/lang}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/openCXA-common-c/include/logger}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/openCXA-common-c/include/misc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/openCXA-common-c/include/mqtt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/openCXA-common-c/include/rpc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/openCXA-common-c/include/serial}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/externals/openCXA-common-c/include/stateMachine}&quot;"/>
@@ -111,7 +112,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="externals/openCXA-common-c/src/mqtt|externals/openCXA-common-c/include/mqtt|externals/openCXA-common-c/src/arch-arduino|externals/openCXA-common-c/include/arch-arduino|externals/openCXA-common-c/src/consoleMenu|externals/openCXA-common-c/include/consoleMenu|externals/openCXA-common-c/src/commandLineParser|externals/openCXA-common-c/include/commandLineParser|externals/openCXA-common-c/include/fdLineParser|externals/openCXA-common-c/src/fdLineParser|externals/openCXA-common-c/src/arch-xmega|externals/openCXA-common-c/src/arch-posix|externals/openCXA-common-c/src/arch-libmraa|externals/openCXA-common-c/src/arch-ble112|externals/openCXA-common-c/include/arch-xmega|externals/openCXA-common-c/include/arch-posix|externals/openCXA-common-c/include/arch-libmraa|externals/openCXA-common-c/include/arch-ble112|externals/arduino" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="externals/openCXA-common-c/src/arch-arduino|externals/openCXA-common-c/include/arch-arduino|externals/openCXA-common-c/src/consoleMenu|externals/openCXA-common-c/include/consoleMenu|externals/openCXA-common-c/src/commandLineParser|externals/openCXA-common-c/include/commandLineParser|externals/openCXA-common-c/include/fdLineParser|externals/openCXA-common-c/src/fdLineParser|externals/openCXA-common-c/src/arch-xmega|externals/openCXA-common-c/src/arch-posix|externals/openCXA-common-c/src/arch-libmraa|externals/openCXA-common-c/src/arch-ble112|externals/openCXA-common-c/include/arch-xmega|externals/openCXA-common-c/include/arch-posix|externals/openCXA-common-c/include/arch-libmraa|externals/openCXA-common-c/include/arch-ble112|externals/arduino" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
